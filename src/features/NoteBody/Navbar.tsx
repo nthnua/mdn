@@ -1,4 +1,5 @@
 import { Flex, IconButton } from '@chakra-ui/react'
+import { FaBackward, FaChevronLeft } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 
 export default function Navbar (): JSX.Element {
@@ -11,7 +12,7 @@ export default function Navbar (): JSX.Element {
         }
     }
     >
-      <IconButton size='sm' aria-label='Go back' onClick={() => navigate('/')}>{'<-'}</IconButton>
+      <IconButton size='sm' aria-label='Go back' onClick={() => navigate('/')} icon={<FaChevronLeft />} />
     </Flex>
   )
 }
