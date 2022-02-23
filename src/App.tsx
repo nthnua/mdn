@@ -5,8 +5,7 @@ import {
 } from '@chakra-ui/react'
 import { MouseEventHandler } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import MDArea from './features/NoteBody/MDArea'
-import NoteBody from './features/NoteBody/NoteBody'
+import Body from './features/NoteBody/Body'
 import Sidebar from './features/Sidebar/Sidebar'
 
 export const App = (): JSX.Element => {
@@ -16,10 +15,10 @@ export const App = (): JSX.Element => {
   }
   return (
     <ChakraProvider theme={theme}>
-      <Flex minH='100vh' minW='100vw' p='3'>
+      <Flex minH='100vh' minW='100vw' p='1'>
         <Sidebar notes={['1', '2', '3']} handleNoteClick={handleNoteClick} />
         <Routes>
-          <Route path='/note/:noteId' element={<><MDArea /><NoteBody /></>} />
+          <Route path='/note/:noteId' element={<Body />} />
         </Routes>
       </Flex>
     </ChakraProvider>
