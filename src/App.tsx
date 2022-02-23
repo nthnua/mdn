@@ -1,38 +1,27 @@
-import * as React from 'react'
 import {
   ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
+  Flex,
   theme
 } from '@chakra-ui/react'
-import { ColorModeSwitcher } from './ColorModeSwitcher'
-import { Logo } from './Logo'
+import { MouseEventHandler } from 'react'
+import { Route, Routes } from 'react-router-dom'
+import MDArea from './features/NoteBody/MDArea'
+import NoteBody from './features/NoteBody/NoteBody'
+import Sidebar from './features/Sidebar/Sidebar'
 
-export const App = () => (
-  <ChakraProvider theme={theme}>
-    <Box textAlign='center' fontSize='xl'>
-      <Grid minH='100vh' p={3}>
-        <ColorModeSwitcher justifySelf='flex-end' />
-        <VStack spacing={8}>
-          <Logo h='40vmin' pointerEvents='none' />
-          <Text>
-            Edit <Code fontSize='xl'>src/App.tsx</Code> and save to reload.
-          </Text>
-          <Link
-            color='teal.500'
-            href='https://chakra-ui.com'
-            fontSize='2xl'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            Learn Chakra
-          </Link>
-        </VStack>
-      </Grid>
-    </Box>
-  </ChakraProvider>
-)
+export const App = (): JSX.Element => {
+  const handleNoteClick: MouseEventHandler = (e) => {
+    console.log(e)
+    // setCurrentNote()
+  }
+  return (
+    <ChakraProvider theme={theme}>
+      <Flex minH='100vh' minW='100vw' p='3'>
+        <Sidebar notes={['1', '2', '3']} handleNoteClick={handleNoteClick} />
+        <Routes>
+          <Route path='/note/:noteId' element={<><MDArea /><NoteBody /></>} />
+        </Routes>
+      </Flex>
+    </ChakraProvider>
+  )
+}
