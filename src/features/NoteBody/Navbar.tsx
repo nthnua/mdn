@@ -2,7 +2,7 @@ import { Flex, IconButton } from '@chakra-ui/react'
 import { FaChevronLeft } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 
-export default function Navbar (): JSX.Element {
+export default function Navbar ({ noteId }: {noteId: string}): JSX.Element {
   const navigate = useNavigate()
   return (
     <Flex

@@ -16,8 +16,16 @@ export const sidebarSlice = createSlice({
         creationtime: Date.now()
       }
       state.notes.push(newNote)
+    },
+    editNote: (state, action) => {
+      console.log(action.payload)
+      state.notes.forEach((note, indx) => {
+        if (note.name === action.payload.id) {
+          note.content = action.payload.content
+        }
+      })
     }
   }
 })
-export const { addNote } = sidebarSlice.actions
+export const { addNote, editNote } = sidebarSlice.actions
 export default sidebarSlice.reducer
