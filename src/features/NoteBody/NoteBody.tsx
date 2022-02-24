@@ -1,12 +1,9 @@
 import { Flex } from '@chakra-ui/react'
-import { useParams } from 'react-router-dom'
 
-export default function NoteBody ({ zIndex, position, height }: React.CSSProperties): JSX.Element {
-  const { noteId } = useParams()
-  console.log(noteId)
+export default function NoteBody (): JSX.Element {
   return (
     <Flex
-      bg='blue.200' flexGrow='1' zIndex={zIndex} pos={position} minW={{
+      bg='blue.200' flexGrow='1' minW={{
         base: 'full',
         md: '50%'
       }} rounded='lg' p='4'

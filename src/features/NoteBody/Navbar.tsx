@@ -1,5 +1,5 @@
 import { Flex, IconButton } from '@chakra-ui/react'
-import { FaBackward, FaChevronLeft } from 'react-icons/fa'
+import { FaChevronLeft } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 
 export default function Navbar (): JSX.Element {

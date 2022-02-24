@@ -1,7 +1,6 @@
 import { Flex, Textarea } from '@chakra-ui/react'
-import React from 'react'
 
-export default function MDArea ({ zIndex, position, height }: React.CSSProperties): JSX.Element {
+export default function MDArea (): JSX.Element {
   return (
     <Flex
       bg='green.200' minW={{
