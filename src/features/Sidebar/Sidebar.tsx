@@ -1,12 +1,18 @@
 import { Box, Flex, HStack, IconButton, Input } from '@chakra-ui/react'
+import { MouseEventHandler } from 'react'
 import { FaPlus, FaRegSun } from 'react-icons/fa'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../app/store'
 import NoteEntry from './NoteEntry'
+import { addNote } from './SidebarSlice'
 
 export default function Sidebar (): JSX.Element {
   const notes = useSelector((state: RootState) => state.sidebar.notes)
   const Notes = notes.map((note, indx) => <NoteEntry key={indx} noteName={note.name} />)
+  const dispatch = useDispatch()
+  const handleAddNote: MouseEventHandler = () => {
+    dispatch(addNote())
+  }
   return (
     <Flex
       w={{
@@ -18,7 +24,7 @@ export default function Sidebar (): JSX.Element {
         <Input placeholder='Search notes' p='2' rounded='full' variant='unstyled' />
       </Box>
       <HStack py='3' alignSelf='center'>
-        <IconButton size='sm' aria-label='Add new' colorScheme='orange' icon={<FaPlus />} />
+        <IconButton size='sm' aria-label='Add new' colorScheme='orange' icon={<FaPlus />} onClick={handleAddNote} />
         <IconButton size='sm' aria-label='Options' colorScheme='orange' icon={<FaRegSun />} />
       </HStack>
       {Notes}
