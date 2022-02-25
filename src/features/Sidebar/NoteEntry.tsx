@@ -1,4 +1,26 @@
-import { AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, Flex, FormControl, FormHelperText, HStack, IconButton, Input, Text } from '@chakra-ui/react'
+import {
+  AlertDialog, AlertDialogBody, AlertDialogCloseButton,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
+  Button,
+  Flex,
+  FormControl,
+  FormHelperText,
+  HStack,
+  IconButton,
+  Input,
+  Text,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverFooter,
+  PopoverArrow,
+  PopoverCloseButton
+} from '@chakra-ui/react'
 import { FormEventHandler, MouseEventHandler, useState } from 'react'
 import { FaPen, FaTrash } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
@@ -6,6 +28,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { RootState } from '../../app/store'
 import { deleteNote, renameNote } from './SidebarSlice'
 
+// TODO: use popover instead of alert if possible
 export default function NoteEntry ({ noteName }: {noteName: string}): JSX.Element {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -82,9 +105,23 @@ export default function NoteEntry ({ noteName }: {noteName: string}): JSX.Elemen
               setRenameAlertIsOpen(true)
             }}
           />
-          <IconButton
-            colorScheme='orange' size='xs' aria-label='Delete note' rounded='full' variant='outline' icon={<FaTrash />} onClick={handleDelete}
-          />
+          <Popover isLazy>
+            <PopoverTrigger>
+              <IconButton
+                colorScheme='orange' size='xs' aria-label='Delete note' rounded='full' variant='outline' icon={<FaTrash />}
+              />
+            </PopoverTrigger>
+            <PopoverContent>
+              <PopoverArrow />
+              <PopoverCloseButton />
+              <PopoverHeader>Delete note?!</PopoverHeader>
+              <PopoverBody>Are you sure you want to delete this note?</PopoverBody>
+              <PopoverFooter>
+                <Button colorScheme='red' variant='solid' onClick={handleDelete}>Yes, Delete</Button>
+              </PopoverFooter>
+            </PopoverContent>
+          </Popover>
+
         </HStack>
       </Flex>
     </Link>

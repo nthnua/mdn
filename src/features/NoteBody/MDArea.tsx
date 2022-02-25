@@ -1,21 +1,43 @@
-import { Flex, Textarea } from '@chakra-ui/react'
+import { Flex, Textarea, useToast } from '@chakra-ui/react'
 import { ChangeEventHandler, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../app/store'
-import { editNote } from '../Sidebar/SidebarSlice'
+import { addNote, editNote, saveNote } from '../Sidebar/SidebarSlice'
 
 export default function MDArea ({ noteId }: {noteId: string}): JSX.Element {
   const currentNote = useSelector((state: RootState) => state.sidebar.currentNote)
+  const toast = useToast()
   const savedNoteContent = useSelector((state: RootState) => {
     return state.sidebar.notes.find(note => note.name === noteId)?.content
   })
   const dispatch = useDispatch()
+  const noteNames = useSelector((state: RootState) => state.sidebar.notes.map(note => note.name))
+  const handleSave = (): void => {
+    const existingNote = (noteNames.some((name) => name === noteId))
+    if (currentNote.name === noteId && existingNote) { dispatch(saveNote({ content: currentNote.content, id: noteId })) } else if (!existingNote) {
+      dispatch(addNote({ content: currentNote.content, name: noteId }))
+    }
+    toast({
+      variant: 'solid',
+      status: 'success',
+      description: 'Note saved',
+      duration: 800
+    })
+  }
   // create a new note here and add to current note
   // update notes array only on save
   const handleChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     dispatch(editNote({ id: noteId, content: e.target.value }))
   }
-
+  const handleKeyDown: React.KeyboardEventHandler<HTMLTextAreaElement> = (event) => {
+    // event.preventDefault()
+    console.log(event.ctrlKey)
+    if ((event.ctrlKey || event.metaKey) && event.key === 's') {
+      event.preventDefault()
+      event.stopPropagation()
+      handleSave()
+    }
+  }
   useEffect(() => {
     const clearCurrent = (): void => {
       dispatch(editNote({ id: '', content: '' }))
@@ -37,7 +59,7 @@ export default function MDArea ({ noteId }: {noteId: string}): JSX.Element {
         md: 'full'
       }}
     >
-      <Textarea fontSize='sm' minH='full' size='lg' display='flex' flexGrow='1' resize='none' maxW='full' variant='unstyled' placeholder='Write markdown here!' value={(currentNote.content)} onChange={handleChange} fontWeight='medium' fontFamily='mono' />
+      <Textarea fontSize='sm' minH='full' size='lg' display='flex' flexGrow='1' resize='none' maxW='full' variant='unstyled' placeholder='Write markdown here!' value={(currentNote.content)} onKeyDown={handleKeyDown} onChange={handleChange} fontWeight='medium' fontFamily='mono' />
     </Flex>
   )
 }

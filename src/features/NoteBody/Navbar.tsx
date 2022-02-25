@@ -1,4 +1,4 @@
-import { ChakraProps, Flex, IconButton, useBreakpointValue } from '@chakra-ui/react'
+import { ChakraProps, Flex, IconButton, useBreakpointValue, useToast } from '@chakra-ui/react'
 import { FaChevronLeft, FaSave } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -8,6 +8,7 @@ import { addNote, saveNote } from '../Sidebar/SidebarSlice'
 export default function Navbar ({ noteId }: {noteId: string}): JSX.Element {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const toast = useToast()
   const currentNote = useSelector((state: RootState) => state.sidebar.currentNote)
   const noteNames = useSelector((state: RootState) => state.sidebar.notes.map(note => note.name))
   const handleSave = (): void => {
@@ -15,6 +16,12 @@ export default function Navbar ({ noteId }: {noteId: string}): JSX.Element {
     if (currentNote.name === noteId && existingNote) { dispatch(saveNote({ content: currentNote.content, id: noteId })) } else if (!existingNote) {
       dispatch(addNote({ content: currentNote.content, name: noteId }))
     }
+    toast({
+      variant: 'solid',
+      status: 'success',
+      description: 'Note saved',
+      duration: 800
+    })
   }
   const mq = useBreakpointValue({ base: { flexDirection: 'row', my: '0', mx: '2' }, md: { flexDirection: 'column', my: '2', mx: '0' } }) as ChakraProps
   return (
