@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react'
+import { Flex, Text } from '@chakra-ui/react'
 import ChakraUIRenderer from 'chakra-ui-markdown-renderer'
 import { useEffect, useRef } from 'react'
 import ReactMarkdown from 'react-markdown'
@@ -14,6 +14,8 @@ export default function NoteBody ({ noteId }: {noteId: string}): JSX.Element {
   useEffect(() => {
     scrollRef.current.scrollIntoView({ behavior: 'auto' })
   }, [currentNote.content])
+  const markdownContent = currentNote.name === noteId ? currentNote.content : savedNoteContent
+
   return (
     <Flex
       overflowY='scroll' overflowWrap='break-word' flexGrow='1'
@@ -25,7 +27,9 @@ export default function NoteBody ({ noteId }: {noteId: string}): JSX.Element {
         md: 'full'
       }} rounded='lg' p='4' m='0.5' fontFamily='body' fontWeight='medium'
     >
-      <ReactMarkdown components={ChakraUIRenderer()}>{(currentNote.name === noteId ? currentNote.content : savedNoteContent) ?? 'Your note will appear here.'}</ReactMarkdown>
+      {typeof markdownContent !== 'undefined' && markdownContent !== ''
+        ? <ReactMarkdown components={ChakraUIRenderer()}>{markdownContent}</ReactMarkdown>
+        : <Text color='gray'>Your note's content will appear here :)</Text>}
       <div ref={scrollRef} />
     </Flex>
   )
