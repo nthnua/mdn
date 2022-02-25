@@ -15,7 +15,7 @@ export default function NoteBody ({ noteId }: {noteId: string}): JSX.Element {
   return (
     <Flex
       overflowY='scroll' overflowWrap='break-word' flexGrow='1'
-      bg='blue.200' flexDir='column' minW={{
+      bg='orange.50' flexDir='column' minW={{
         base: 'full',
         md: '50%'
       }} maxH={{
