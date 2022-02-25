@@ -1,21 +1,32 @@
-import { AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, Flex, HStack, IconButton, Input, Text } from '@chakra-ui/react'
+import { AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, Flex, FormControl, FormHelperText, HStack, IconButton, Input, Text } from '@chakra-ui/react'
 import { FormEventHandler, useState } from 'react'
-import { FaEdit } from 'react-icons/fa'
-import { useDispatch } from 'react-redux'
+import { FaPen, FaTrash } from 'react-icons/fa'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { renameNote } from './SidebarSlice'
+import { RootState } from '../../app/store'
+import { deleteNote, renameNote } from './SidebarSlice'
 
 export default function NoteEntry ({ noteName }: {noteName: string}): JSX.Element {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [isRenameAlertOpen, setRenameAlertIsOpen] = useState<boolean>(false)
+  const currentNoteName = useSelector((state: RootState) => state.sidebar.currentNote.name)
   const [newName, setNewName] = useState<string>(noteName)
+  const [newNameValid, setNewNameValid] = useState<boolean>(true)
+  const noteNames = useSelector((state: RootState) => state.sidebar.notes.map(note => note.name))
   const handleRename: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
     e.stopPropagation()
-    setRenameAlertIsOpen(false)
-    dispatch(renameNote({ oldName: noteName, newName }))
-    navigate(`/note/${newName}`)
+    if (noteNames.some(name => name === newName)) {
+      setNewNameValid(false)
+    } else if (currentNoteName === noteName) {
+      setRenameAlertIsOpen(false)
+      dispatch(renameNote({ oldName: noteName, newName }))
+      navigate(`/note/${newName}`)
+    } else {
+      setRenameAlertIsOpen(false)
+      dispatch(renameNote({ oldName: noteName, newName }))
+    }
   }
   return (
     <Link to={`/note/${noteName}`}>
@@ -28,7 +39,17 @@ export default function NoteEntry ({ noteName }: {noteName: string}): JSX.Elemen
             </AlertDialogHeader>
             <AlertDialogCloseButton />
             <AlertDialogBody>
-              <Input isRequired pattern='[A-Za-z0-9_]+' name='name' type='text' value={newName} onChange={(e) => setNewName(e.target.value)} />
+              <FormControl isInvalid={!newNameValid}>
+                <Input
+                  isRequired pattern='[A-Za-z0-9_ ]+' name='name' type='text' value={newName} onChange={(e) => {
+                    setNewName(e.target.value)
+                    setNewNameValid(true)
+                  }}
+                />
+                <FormHelperText>
+                  Use a unique,alphanumeric name
+                </FormHelperText>
+              </FormControl>
             </AlertDialogBody>
             <AlertDialogFooter>
               <Button type='submit'>Rename</Button>
@@ -42,9 +63,22 @@ export default function NoteEntry ({ noteName }: {noteName: string}): JSX.Elemen
           bg: 'orange.500'
         }} justify='space-between'
       >
-        <Text px='2'>{noteName}</Text>
+        <Text px='2' maxW='50%' overflow='hidden' textOverflow='ellipsis' whiteSpace='nowrap'>{noteName}</Text>
         <HStack alignSelf='flex-end'>
-          <IconButton colorScheme='orange' size='xs' aria-label='rename note' rounded='full' variant='outline' icon={<FaEdit />} onClick={() => setRenameAlertIsOpen(true)} />
+          <IconButton
+            colorScheme='orange' size='xs' aria-label='Rename note' rounded='full' variant='outline' icon={<FaPen />} onClick={(e) => {
+              e.stopPropagation()
+              e.preventDefault()
+              setRenameAlertIsOpen(true)
+            }}
+          />
+          <IconButton
+            colorScheme='orange' size='xs' aria-label='Delete note' rounded='full' variant='outline' icon={<FaTrash />} onClick={(e) => {
+              e.stopPropagation()
+              e.preventDefault()
+              dispatch(deleteNote({ name: noteName }))
+            }}
+          />
         </HStack>
       </Flex>
     </Link>

@@ -1,6 +1,6 @@
 import { Box, Flex, HStack, IconButton, Input } from '@chakra-ui/react'
 import { MouseEventHandler } from 'react'
-import { FaPlus, FaRegSun } from 'react-icons/fa'
+import { FaCog, FaPlus } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../app/store'
 import NoteEntry from './NoteEntry'
@@ -11,7 +11,7 @@ export default function Sidebar (): JSX.Element {
   const Notes = notes.map((note, indx) => <NoteEntry key={indx} noteName={note.name} />)
   const dispatch = useDispatch()
   const handleAddNote: MouseEventHandler = () => {
-    dispatch(addNote({ name: `Note${notes.length + 1}`, content: '' }))
+    dispatch(addNote({ name: `Note${Math.floor(Math.random() * 999999999999999)}`, content: '' }))
   }
   return (
     <Flex
@@ -25,7 +25,7 @@ export default function Sidebar (): JSX.Element {
       </Box>
       <HStack py='3' alignSelf='center'>
         <IconButton size='sm' aria-label='Add new' colorScheme='orange' icon={<FaPlus />} onClick={handleAddNote} />
-        <IconButton size='sm' aria-label='Options' colorScheme='orange' icon={<FaRegSun />} />
+        <IconButton size='sm' aria-label='Options' colorScheme='orange' icon={<FaCog />} />
       </HStack>
       {Notes}
     </Flex>

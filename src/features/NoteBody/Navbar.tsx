@@ -9,9 +9,8 @@ export default function Navbar ({ noteId }: {noteId: string}): JSX.Element {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const currentNote = useSelector((state: RootState) => state.sidebar.currentNote)
-  const notes = useSelector((state: RootState) => state.sidebar.notes)
+  const noteNames = useSelector((state: RootState) => state.sidebar.notes.map(note => note.name))
   const handleSave = (): void => {
-    const noteNames = notes.map(note => note.name)
     const existingNote = (noteNames.some((name) => name === noteId))
     if (currentNote.name === noteId && existingNote) { dispatch(saveNote({ content: currentNote.content, id: noteId })) } else if (!existingNote) {
       dispatch(addNote({ content: currentNote.content, name: noteId }))

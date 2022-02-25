@@ -7,14 +7,10 @@ import { RootState } from '../../app/store'
 
 export default function NoteBody ({ noteId }: {noteId: string}): JSX.Element {
   const currentNote = useSelector((state: RootState) => state.sidebar.currentNote)
-  const savedNoteContent = useSelector((state: RootState) => {
-    return state.sidebar.notes.find(note => note.name === noteId)?.content
-  })
   const scrollRef = useRef() as React.MutableRefObject<HTMLInputElement>
   useEffect(() => {
     scrollRef.current.scrollIntoView({ behavior: 'auto' })
   }, [currentNote.content])
-  const markdownContent = currentNote.name === noteId ? currentNote.content : savedNoteContent
 
   return (
     <Flex
@@ -27,8 +23,8 @@ export default function NoteBody ({ noteId }: {noteId: string}): JSX.Element {
         md: 'full'
       }} rounded='lg' p='4' m='0.5' fontFamily='body' fontWeight='medium'
     >
-      {typeof markdownContent !== 'undefined' && markdownContent !== ''
-        ? <ReactMarkdown components={ChakraUIRenderer()}>{markdownContent}</ReactMarkdown>
+      {currentNote.content !== ''
+        ? <ReactMarkdown components={ChakraUIRenderer()}>{currentNote.content}</ReactMarkdown>
         : <Text color='gray'>Your note's content will appear here :)</Text>}
       <div ref={scrollRef} />
     </Flex>

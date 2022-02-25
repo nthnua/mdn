@@ -22,6 +22,9 @@ export default function MDArea ({ noteId }: {noteId: string}): JSX.Element {
     }
     return clearCurrent
   }, [dispatch, noteId])
+  useEffect(() => {
+    dispatch(editNote({ id: noteId, content: savedNoteContent }))
+  }, [savedNoteContent, noteId, dispatch])
   return (
     <Flex
       overflowY='scroll' overflowWrap='break-word'
@@ -34,7 +37,7 @@ export default function MDArea ({ noteId }: {noteId: string}): JSX.Element {
         md: 'full'
       }}
     >
-      <Textarea minH='full' size='lg' display='flex' flexGrow='1' resize='none' maxW='full' variant='unstyled' placeholder='Write markdown here!' value={(currentNote.name === noteId ? currentNote.content : savedNoteContent)} onChange={handleChange} fontWeight='medium' fontFamily='mono' />
+      <Textarea minH='full' size='lg' display='flex' flexGrow='1' resize='none' maxW='full' variant='unstyled' placeholder='Write markdown here!' value={(currentNote.content)} onChange={handleChange} fontWeight='medium' fontFamily='mono' />
     </Flex>
   )
 }
