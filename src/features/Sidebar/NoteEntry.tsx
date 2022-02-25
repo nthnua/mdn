@@ -25,19 +25,20 @@ import { deleteNote, renameNote } from './SidebarSlice'
 export default function NoteEntry ({ noteName }: {noteName: string}): JSX.Element {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const bgColor = useColorModeValue('orange.100', 'orange.900')
   const [isRenameAlertOpen, setRenameAlertIsOpen] = useState<boolean>(false)
   const [isDeleteAlertOpen, setDeleteAlertOpen] = useState<boolean>(false)
   const currentNoteName = useSelector((state: RootState) => state.sidebar.currentNote.name)
+  const current = currentNoteName === noteName
   const [newName, setNewName] = useState<string>(noteName)
   const [newNameValid, setNewNameValid] = useState<boolean>(true)
   const noteNames = useSelector((state: RootState) => state.sidebar.notes.map(note => note.name))
+  const bgColor = useColorModeValue(current ? 'orange.300' : 'orange.100', current ? 'orange.700' : 'orange.900')
   const handleRename: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
     e.stopPropagation()
     if (noteNames.some(name => name === newName)) {
       setNewNameValid(false)
-    } else if (currentNoteName === noteName) {
+    } else if (current) {
       setRenameAlertIsOpen(false)
       dispatch(renameNote({ oldName: noteName, newName }))
       navigate(`/note/${newName}`)
@@ -47,7 +48,7 @@ export default function NoteEntry ({ noteName }: {noteName: string}): JSX.Elemen
     }
   }
   const handleDelete: MouseEventHandler = (e) => {
-    if (currentNoteName === noteName) {
+    if (current) {
       dispatch(deleteNote({ name: noteName }))
       navigate('/')
     } else {
@@ -87,7 +88,7 @@ export default function NoteEntry ({ noteName }: {noteName: string}): JSX.Elemen
         </AlertDialog>
         <Flex
           cursor='pointer' bg={bgColor} rounded='full' m='1' p='2' shadow='sm' _hover={{
-            bg: 'orange.500'
+            boxShadow: 'lg'
           }} justify='space-between'
         >
           <Text px='2' maxW='50%' overflow='hidden' textOverflow='ellipsis' whiteSpace='nowrap'>{noteName}</Text>

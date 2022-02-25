@@ -24,7 +24,7 @@ export default function Sidebar (): JSX.Element {
       }} minH='full' flexDir='column' bg={sideBarBg} rounded='lg' p='2' m='0.5' boxShadow='base' overflowY='scroll'
     >
       <Box cursor='pointer' bg={searchBg} rounded='full' textAlign='center' shadow='md'>
-        <Input placeholder='Search notes' p='2' rounded='full' variant='unstyled' />
+        <Input placeholder='Search notes' py='2' px='4' textAlign='center' rounded='full' variant='unstyled' />
       </Box>
       <HStack py='3' alignSelf='center'>
         <IconButton size='sm' aria-label='Add new' variant='ghost' colorScheme='orange' icon={<FaPlus />} onClick={handleAddNote} />
