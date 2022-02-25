@@ -12,7 +12,8 @@ import {
   IconButton,
   Input,
   ScaleFade,
-  Text
+  Text,
+  useColorModeValue
 } from '@chakra-ui/react'
 import { FormEventHandler, MouseEventHandler, useState } from 'react'
 import { FaPen, FaTrash } from 'react-icons/fa'
@@ -24,6 +25,7 @@ import { deleteNote, renameNote } from './SidebarSlice'
 export default function NoteEntry ({ noteName }: {noteName: string}): JSX.Element {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const bgColor = useColorModeValue('orange.100', 'orange.900')
   const [isRenameAlertOpen, setRenameAlertIsOpen] = useState<boolean>(false)
   const [isDeleteAlertOpen, setDeleteAlertOpen] = useState<boolean>(false)
   const currentNoteName = useSelector((state: RootState) => state.sidebar.currentNote.name)
@@ -84,8 +86,7 @@ export default function NoteEntry ({ noteName }: {noteName: string}): JSX.Elemen
           </AlertDialogContent>
         </AlertDialog>
         <Flex
-          id='test'
-          cursor='pointer' bg='orange.400' rounded='full' m='1' p='2' shadow='sm' _hover={{
+          cursor='pointer' bg={bgColor} rounded='full' m='1' p='2' shadow='sm' _hover={{
             bg: 'orange.500'
           }} justify='space-between'
         >

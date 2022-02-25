@@ -1,4 +1,4 @@
-import { Flex, Text } from '@chakra-ui/react'
+import { Flex, Text, useColorModeValue } from '@chakra-ui/react'
 import ChakraUIRenderer from 'chakra-ui-markdown-renderer'
 import { useEffect, useRef } from 'react'
 import ReactMarkdown from 'react-markdown'
@@ -7,6 +7,7 @@ import { RootState } from '../../app/store'
 
 export default function NoteBody ({ noteId }: {noteId: string}): JSX.Element {
   const currentNote = useSelector((state: RootState) => state.sidebar.currentNote)
+  const bgColor = useColorModeValue('orange.50', 'orange.800')
   const scrollRef = useRef() as React.MutableRefObject<HTMLInputElement>
   useEffect(() => {
     scrollRef.current.scrollIntoView({ behavior: 'auto' })
@@ -15,7 +16,7 @@ export default function NoteBody ({ noteId }: {noteId: string}): JSX.Element {
   return (
     <Flex
       overflowY='scroll' overflowWrap='break-word' flexGrow='1'
-      bg='orange.50' flexDir='column' minW={{
+      bg={bgColor} flexDir='column' minW={{
         base: 'full',
         md: '50%'
       }} maxH={{

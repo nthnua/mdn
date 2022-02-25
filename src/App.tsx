@@ -1,7 +1,6 @@
 import {
   ChakraProvider,
-  Flex,
-  theme
+  Flex
 } from '@chakra-ui/react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,6 +9,7 @@ import { RootState } from './app/store'
 import Body from './features/NoteBody/Body'
 import Sidebar from './features/Sidebar/Sidebar'
 import { loadNotes } from './features/Sidebar/SidebarSlice'
+import theme from './theme'
 import { Note } from './types'
 
 export const App = (): JSX.Element => {

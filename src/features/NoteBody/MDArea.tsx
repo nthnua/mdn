@@ -1,4 +1,4 @@
-import { Flex, Textarea, useToast } from '@chakra-ui/react'
+import { Flex, Textarea, useColorModeValue, useToast } from '@chakra-ui/react'
 import { ChangeEventHandler, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../app/store'
@@ -11,6 +11,7 @@ export default function MDArea ({ noteId }: {noteId: string}): JSX.Element {
     return state.sidebar.notes.find(note => note.name === noteId)?.content
   })
   const dispatch = useDispatch()
+  const bgColor = useColorModeValue('green.50', 'green.800')
   const noteNames = useSelector((state: RootState) => state.sidebar.notes.map(note => note.name))
   const handleSave = (): void => {
     const existingNote = (noteNames.some((name) => name === noteId))
@@ -50,7 +51,7 @@ export default function MDArea ({ noteId }: {noteId: string}): JSX.Element {
   return (
     <Flex
       overflowY='scroll' overflowWrap='break-word'
-      bg='green.50' minW={{
+      bg={bgColor} minW={{
         base: 'full',
         md: '50%'
       }} flexDir='column' rounded='lg' flexGrow='1' p='4' m='0.5'

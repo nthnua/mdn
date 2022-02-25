@@ -16,10 +16,9 @@ export const ColorModeSwitcher: React.FC<ColorModeSwitcherProps> = (props) => {
 
   return (
     <IconButton
-      size='md'
-      fontSize='lg'
+      size='sm'
       variant='ghost'
-      color='current'
+      colorScheme='orange'
       marginLeft='2'
       onClick={toggleColorMode}
       icon={<SwitchIcon />}
