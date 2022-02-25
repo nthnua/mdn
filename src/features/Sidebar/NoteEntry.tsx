@@ -1,5 +1,5 @@
 import { AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, Flex, FormControl, FormHelperText, HStack, IconButton, Input, Text } from '@chakra-ui/react'
-import { FormEventHandler, useState } from 'react'
+import { FormEventHandler, MouseEventHandler, useState } from 'react'
 import { FaPen, FaTrash } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
@@ -26,6 +26,16 @@ export default function NoteEntry ({ noteName }: {noteName: string}): JSX.Elemen
     } else {
       setRenameAlertIsOpen(false)
       dispatch(renameNote({ oldName: noteName, newName }))
+    }
+  }
+  const handleDelete: MouseEventHandler = (e) => {
+    e.stopPropagation()
+    e.preventDefault()
+    if (currentNoteName === noteName) {
+      dispatch(deleteNote({ name: noteName }))
+      navigate('/')
+    } else {
+      dispatch(deleteNote({ name: noteName }))
     }
   }
   return (
@@ -73,11 +83,7 @@ export default function NoteEntry ({ noteName }: {noteName: string}): JSX.Elemen
             }}
           />
           <IconButton
-            colorScheme='orange' size='xs' aria-label='Delete note' rounded='full' variant='outline' icon={<FaTrash />} onClick={(e) => {
-              e.stopPropagation()
-              e.preventDefault()
-              dispatch(deleteNote({ name: noteName }))
-            }}
+            colorScheme='orange' size='xs' aria-label='Delete note' rounded='full' variant='outline' icon={<FaTrash />} onClick={handleDelete}
           />
         </HStack>
       </Flex>
