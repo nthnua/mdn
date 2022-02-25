@@ -10,7 +10,7 @@ import Sidebar from './features/Sidebar/Sidebar'
 export const App = (): JSX.Element => {
   return (
     <ChakraProvider theme={theme}>
-      <Flex minH='100vh' minW='100vw' p='1'>
+      <Flex minH='100vh' maxH='100vh' minW='100vw' maxW='100vw' p='1'>
         <Sidebar />
         <Routes>
           <Route path='/note/:noteId' element={<Body />} />

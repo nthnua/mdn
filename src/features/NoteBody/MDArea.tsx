@@ -24,10 +24,15 @@ export default function MDArea ({ noteId }: {noteId: string}): JSX.Element {
   }, [dispatch, noteId])
   return (
     <Flex
+      overflowY='scroll' overflowWrap='break-word'
       bg='green.200' minW={{
         base: 'full',
         md: '50%'
-      }} flexGrow='1' rounded='lg' p='4' m='0.5'
+      }} flexDir='column' rounded='lg' flexGrow='1' p='4' m='0.5'
+      maxH={{
+        base: '45vh',
+        md: 'full'
+      }}
     >
       <Textarea minH='full' size='lg' display='flex' flexGrow='1' resize='none' maxW='full' variant='unstyled' placeholder='Write markdown here!' value={(currentNote.name === noteId ? currentNote.content : savedNoteContent)} onChange={handleChange} fontWeight='medium' fontFamily='mono' />
     </Flex>

@@ -1,5 +1,5 @@
-import { Flex, IconButton } from '@chakra-ui/react'
-import { FaChevronLeft, FaSave } from 'react-icons/fa'
+import { ChakraProps, Flex, IconButton, useBreakpointValue } from '@chakra-ui/react'
+import { FaSave, FaWindowClose } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { RootState } from '../../app/store'
@@ -12,12 +12,13 @@ export default function Navbar ({ noteId }: {noteId: string}): JSX.Element {
   const handleSave = (): void => {
     dispatch(saveNote({ content: currentNoteContent, id: noteId }))
   }
+  const mq = useBreakpointValue({ base: { flexDirection: 'row', my: '0', mx: '2' }, md: { flexDirection: 'column', my: '2', mx: '0' } }) as ChakraProps
   return (
     <Flex
-      bg='white' rounded='lg' p='2' flexDir='column'
+      bg='white' rounded='lg' p='2' flexDir={mq?.flexDirection}
     >
-      <IconButton size='sm' aria-label='Go back' onClick={() => navigate('/')} variant='outline' icon={<FaChevronLeft />} my='2' />
-      <IconButton size='sm' aria-label='Go back' onClick={handleSave} variant='outline' icon={<FaSave />} my='2' />
+      <IconButton size='sm' aria-label='Go back' onClick={() => navigate('/')} variant='outline' icon={<FaWindowClose />} my={mq.my} mx={mq.mx} />
+      <IconButton size='sm' aria-label='Go back' onClick={handleSave} variant='outline' icon={<FaSave />} my={mq.my} mx={mq.mx} />
     </Flex>
   )
 }
