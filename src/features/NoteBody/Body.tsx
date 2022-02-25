@@ -15,9 +15,9 @@ export default function Body (): JSX.Element {
         md: '80%'
       }} zIndex={mq.zIndex} position={mq.position} flexDirection={mq.flexDirection}
     >
-      <Navbar noteId={noteId ?? ''} />
       <NoteBody noteId={noteId ?? ''} />
       <MDArea noteId={noteId ?? ''} />
+      <Navbar noteId={noteId ?? ''} />
     </Flex>
   )
 }

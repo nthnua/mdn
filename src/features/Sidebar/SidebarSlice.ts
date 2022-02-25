@@ -1,8 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { Note } from '../../types'
 
-const initialState: {notes: Note[]} = {
-  notes: []
+const initialState: {notes: Note[], currentNote: Note} = {
+  notes: [],
+  currentNote: {
+    name: '',
+    content: '',
+    creationtime: 0
+  }
 }
 
 export const sidebarSlice = createSlice({
@@ -17,15 +22,18 @@ export const sidebarSlice = createSlice({
       }
       state.notes.push(newNote)
     },
-    editNote: (state, action) => {
-      console.log(action.payload)
+    saveNote: (state, action) => {
       state.notes.forEach((note, indx) => {
-        if (note.name === action.payload.id) {
-          note.content = action.payload.content
+        if (note.name === action.payload.note.id) {
+          note = action.payload.note
         }
       })
+    },
+    editNote: (state, action) => {
+      state.currentNote.name = action.payload.id
+      state.currentNote.content = action.payload.content
     }
   }
 })
-export const { addNote, editNote } = sidebarSlice.actions
+export const { addNote, saveNote, editNote } = sidebarSlice.actions
 export default sidebarSlice.reducer
