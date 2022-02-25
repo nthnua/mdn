@@ -11,15 +11,8 @@ import {
   HStack,
   IconButton,
   Input,
-  Text,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverHeader,
-  PopoverBody,
-  PopoverFooter,
-  PopoverArrow,
-  PopoverCloseButton
+  ScaleFade,
+  Text
 } from '@chakra-ui/react'
 import { FormEventHandler, MouseEventHandler, useState } from 'react'
 import { FaPen, FaTrash } from 'react-icons/fa'
@@ -28,11 +21,11 @@ import { Link, useNavigate } from 'react-router-dom'
 import { RootState } from '../../app/store'
 import { deleteNote, renameNote } from './SidebarSlice'
 
-// TODO: use popover instead of alert if possible
 export default function NoteEntry ({ noteName }: {noteName: string}): JSX.Element {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [isRenameAlertOpen, setRenameAlertIsOpen] = useState<boolean>(false)
+  const [isDeleteAlertOpen, setDeleteAlertOpen] = useState<boolean>(false)
   const currentNoteName = useSelector((state: RootState) => state.sidebar.currentNote.name)
   const [newName, setNewName] = useState<string>(noteName)
   const [newNameValid, setNewNameValid] = useState<boolean>(true)
@@ -52,78 +45,85 @@ export default function NoteEntry ({ noteName }: {noteName: string}): JSX.Elemen
     }
   }
   const handleDelete: MouseEventHandler = (e) => {
-    e.stopPropagation()
-    e.preventDefault()
     if (currentNoteName === noteName) {
       dispatch(deleteNote({ name: noteName }))
       navigate('/')
     } else {
       dispatch(deleteNote({ name: noteName }))
     }
+    setDeleteAlertOpen(false)
   }
   return (
-    <Link to={`/note/${noteName}`}>
-      <AlertDialog motionPreset='slideInBottom' isOpen={isRenameAlertOpen} onClose={() => setRenameAlertIsOpen(false)} leastDestructiveRef={undefined}>
-        <AlertDialogOverlay />
-        <AlertDialogContent>
-          <form onSubmit={handleRename}>
-            <AlertDialogHeader>
-              Rename note
-            </AlertDialogHeader>
-            <AlertDialogCloseButton />
-            <AlertDialogBody>
-              <FormControl isInvalid={!newNameValid}>
-                <Input
-                  isRequired pattern='[A-Za-z0-9_ ]+' name='name' type='text' value={newName} onChange={(e) => {
-                    setNewName(e.target.value)
-                    setNewNameValid(true)
-                  }}
-                />
-                <FormHelperText>
-                  Use a unique,alphanumeric name
-                </FormHelperText>
-              </FormControl>
-            </AlertDialogBody>
-            <AlertDialogFooter>
-              <Button type='submit'>Rename</Button>
-            </AlertDialogFooter>
-          </form>
-        </AlertDialogContent>
-      </AlertDialog>
-      <Flex
-        id='test'
-        cursor='pointer' bg='orange.400' rounded='full' m='1' p='2' shadow='sm' _hover={{
-          bg: 'orange.500'
-        }} justify='space-between'
-      >
-        <Text px='2' maxW='50%' overflow='hidden' textOverflow='ellipsis' whiteSpace='nowrap'>{noteName}</Text>
-        <HStack alignSelf='flex-end'>
-          <IconButton
-            colorScheme='orange' size='xs' aria-label='Rename note' rounded='full' variant='outline' icon={<FaPen />} onClick={(e) => {
-              e.stopPropagation()
-              e.preventDefault()
-              setRenameAlertIsOpen(true)
-            }}
-          />
-          <Popover isLazy>
-            <PopoverTrigger>
-              <IconButton
-                colorScheme='orange' size='xs' aria-label='Delete note' rounded='full' variant='outline' icon={<FaTrash />}
-              />
-            </PopoverTrigger>
-            <PopoverContent>
-              <PopoverArrow />
-              <PopoverCloseButton />
-              <PopoverHeader>Delete note?!</PopoverHeader>
-              <PopoverBody>Are you sure you want to delete this note?</PopoverBody>
-              <PopoverFooter>
-                <Button colorScheme='red' variant='solid' onClick={handleDelete}>Yes, Delete</Button>
-              </PopoverFooter>
-            </PopoverContent>
-          </Popover>
+    <ScaleFade in initialScale={0.8}>
+      <Link to={`/note/${noteName}`}>
+        <AlertDialog motionPreset='slideInBottom' isOpen={isRenameAlertOpen} onClose={() => setRenameAlertIsOpen(false)} leastDestructiveRef={undefined}>
+          <AlertDialogOverlay />
+          <AlertDialogContent>
+            <form onSubmit={handleRename}>
+              <AlertDialogHeader>
+                Rename note
+              </AlertDialogHeader>
+              <AlertDialogCloseButton />
+              <AlertDialogBody>
+                <FormControl isInvalid={!newNameValid}>
+                  <Input
+                    isRequired pattern='[A-Za-z0-9_ ]+' name='name' type='text' value={newName} onChange={(e) => {
+                      setNewName(e.target.value)
+                      setNewNameValid(true)
+                    }}
+                  />
+                  <FormHelperText>
+                    Use a unique,alphanumeric name
+                  </FormHelperText>
+                </FormControl>
+              </AlertDialogBody>
+              <AlertDialogFooter>
+                <Button type='submit'>Rename</Button>
+              </AlertDialogFooter>
+            </form>
+          </AlertDialogContent>
+        </AlertDialog>
+        <Flex
+          id='test'
+          cursor='pointer' bg='orange.400' rounded='full' m='1' p='2' shadow='sm' _hover={{
+            bg: 'orange.500'
+          }} justify='space-between'
+        >
+          <Text px='2' maxW='50%' overflow='hidden' textOverflow='ellipsis' whiteSpace='nowrap'>{noteName}</Text>
+          <HStack alignSelf='flex-end'>
+            <IconButton
+              colorScheme='orange' size='xs' aria-label='Rename note' rounded='full' variant='outline' icon={<FaPen />} onClick={(e) => {
+                e.stopPropagation()
+                e.preventDefault()
+                setRenameAlertIsOpen(true)
+              }}
+            />
+            <AlertDialog autoFocus motionPreset='slideInBottom' isOpen={isDeleteAlertOpen} onClose={() => setDeleteAlertOpen(false)} leastDestructiveRef={undefined}>
+              <AlertDialogOverlay />
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  Delete note?!
+                </AlertDialogHeader>
+                <AlertDialogBody>
+                  Are you sure, you want to delete this note?
+                </AlertDialogBody>
+                <AlertDialogFooter>
+                  <AlertDialogCloseButton />
+                  <Button variant='solid' colorScheme='red' onClick={handleDelete}>Delete</Button>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+            <IconButton
+              colorScheme='orange' size='xs' aria-label='Delete note' rounded='full' onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                setDeleteAlertOpen(true)
+              }} variant='outline' icon={<FaTrash />}
+            />
 
-        </HStack>
-      </Flex>
-    </Link>
+          </HStack>
+        </Flex>
+      </Link>
+    </ScaleFade>
   )
 }
