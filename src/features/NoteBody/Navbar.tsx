@@ -3,14 +3,19 @@ import { FaSave, FaWindowClose } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { RootState } from '../../app/store'
-import { saveNote } from '../Sidebar/SidebarSlice'
+import { addNote, saveNote } from '../Sidebar/SidebarSlice'
 
 export default function Navbar ({ noteId }: {noteId: string}): JSX.Element {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const currentNote = useSelector((state: RootState) => state.sidebar.currentNote)
+  const notes = useSelector((state: RootState) => state.sidebar.notes)
   const handleSave = (): void => {
-    if (currentNote.name !== '') { dispatch(saveNote({ content: currentNote.content, id: noteId })) }
+    const noteNames = notes.map(note => note.name)
+    const existingNote = (noteNames.some((name) => name === noteId))
+    if (currentNote.name === noteId && existingNote) { dispatch(saveNote({ content: currentNote.content, id: noteId })) } else if (!existingNote) {
+      dispatch(addNote({ content: currentNote.content, name: noteId }))
+    }
   }
   const mq = useBreakpointValue({ base: { flexDirection: 'row', my: '0', mx: '2' }, md: { flexDirection: 'column', my: '2', mx: '0' } }) as ChakraProps
   return (

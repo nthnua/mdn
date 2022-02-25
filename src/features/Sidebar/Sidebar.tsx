@@ -11,7 +11,7 @@ export default function Sidebar (): JSX.Element {
   const Notes = notes.map((note, indx) => <NoteEntry key={indx} noteName={note.name} />)
   const dispatch = useDispatch()
   const handleAddNote: MouseEventHandler = () => {
-    dispatch(addNote())
+    dispatch(addNote({ name: `Note${notes.length + 1}`, content: '' }))
   }
   return (
     <Flex

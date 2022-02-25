@@ -14,10 +14,10 @@ export const sidebarSlice = createSlice({
   name: 'sidebar',
   initialState,
   reducers: {
-    addNote: state => {
+    addNote: (state, action) => {
       const newNote: Note = {
-        name: `Note${state.notes.length + 1}`,
-        content: '',
+        name: action.payload.name,
+        content: action.payload.content,
         creationtime: Date.now()
       }
       state.notes.push(newNote)
