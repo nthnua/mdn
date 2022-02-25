@@ -5,7 +5,10 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../app/store'
 
 export default function NoteBody ({ noteId }: {noteId: string}): JSX.Element {
-  const noteContent = useSelector((state: RootState) => state.sidebar.currentNote.content)
+  const currentNote = useSelector((state: RootState) => state.sidebar.currentNote)
+  const savedNoteContent = useSelector((state: RootState) => {
+    return state.sidebar.notes.find(note => note.name === noteId)?.content
+  })
   return (
     <Flex
       bg='blue.200' flexGrow='1' flexDir='column' minW={{
@@ -13,7 +16,7 @@ export default function NoteBody ({ noteId }: {noteId: string}): JSX.Element {
         md: '50%'
       }} rounded='lg' p='4'
     >
-      <ReactMarkdown components={ChakraUIRenderer()}>{noteContent ?? ''}</ReactMarkdown>
+      <ReactMarkdown components={ChakraUIRenderer()}>{(currentNote.name === noteId ? currentNote.content : savedNoteContent) ?? ''}</ReactMarkdown>
     </Flex>
   )
 }

@@ -5,7 +5,8 @@ import { RootState } from '../../app/store'
 import { editNote } from '../Sidebar/SidebarSlice'
 
 export default function MDArea ({ noteId }: {noteId: string}): JSX.Element {
-  const content = useSelector((state: RootState) => {
+  const currentNote = useSelector((state: RootState) => state.sidebar.currentNote)
+  const savedNoteContent = useSelector((state: RootState) => {
     return state.sidebar.notes.find(note => note.name === noteId)?.content
   })
   const dispatch = useDispatch()
@@ -17,10 +18,10 @@ export default function MDArea ({ noteId }: {noteId: string}): JSX.Element {
 
   useEffect(() => {
     const clearCurrent = (): void => {
-      dispatch(editNote({ id: 0, content: '' }))
+      dispatch(editNote({ id: '', content: '' }))
     }
     return clearCurrent
-  }, [dispatch])
+  }, [dispatch, noteId])
   return (
     <Flex
       bg='green.200' minW={{
@@ -28,7 +29,7 @@ export default function MDArea ({ noteId }: {noteId: string}): JSX.Element {
         md: '50%'
       }} flexGrow='1' rounded='lg' p='4'
     >
-      <Textarea minH='full' size='lg' display='flex' flexGrow='1' resize='none' maxW='full' variant='unstyled' placeholder='Write here :)' defaultValue={content} onChange={handleChange} />
+      <Textarea minH='full' size='lg' display='flex' flexGrow='1' resize='none' maxW='full' variant='unstyled' placeholder='Write here :)' value={(currentNote.name === noteId ? currentNote.content : savedNoteContent)} onChange={handleChange} />
     </Flex>
   )
 }

@@ -24,8 +24,8 @@ export const sidebarSlice = createSlice({
     },
     saveNote: (state, action) => {
       state.notes.forEach((note, indx) => {
-        if (note.name === action.payload.note.id) {
-          note = action.payload.note
+        if (note.name === action.payload.id) {
+          note.content = action.payload.content
         }
       })
     },
