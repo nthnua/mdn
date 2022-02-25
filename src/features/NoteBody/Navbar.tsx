@@ -8,9 +8,9 @@ import { saveNote } from '../Sidebar/SidebarSlice'
 export default function Navbar ({ noteId }: {noteId: string}): JSX.Element {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const currentNoteContent = useSelector((state: RootState) => state.sidebar.currentNote.content)
+  const currentNote = useSelector((state: RootState) => state.sidebar.currentNote)
   const handleSave = (): void => {
-    dispatch(saveNote({ content: currentNoteContent, id: noteId }))
+    if (currentNote.name !== '') { dispatch(saveNote({ content: currentNote.content, id: noteId })) }
   }
   const mq = useBreakpointValue({ base: { flexDirection: 'row', my: '0', mx: '2' }, md: { flexDirection: 'column', my: '2', mx: '0' } }) as ChakraProps
   return (
