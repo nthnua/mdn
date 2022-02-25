@@ -39,8 +39,11 @@ export const sidebarSlice = createSlice({
           note.name = action.payload.newName
         }
       })
+    },
+    loadNotes: (state, action) => {
+      state.notes = action.payload
     }
   }
 })
-export const { addNote, saveNote, editNote, renameNote } = sidebarSlice.actions
+export const { addNote, saveNote, editNote, renameNote, loadNotes } = sidebarSlice.actions
 export default sidebarSlice.reducer
