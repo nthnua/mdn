@@ -59,7 +59,7 @@ export default function MDArea ({ noteId }: {noteId: string}): JSX.Element {
         md: 'full'
       }}
     >
-      <Textarea fontSize='sm' minH='full' size='lg' display='flex' flexGrow='1' resize='none' maxW='full' variant='unstyled' placeholder='Write markdown here!' value={(currentNote.content)} onKeyDown={handleKeyDown} onChange={handleChange} fontWeight='medium' fontFamily='mono' />
+      <Textarea autoFocus fontSize='sm' minH='full' size='lg' display='flex' flexGrow='1' resize='none' maxW='full' variant='unstyled' placeholder='Write markdown here!' value={(currentNote.content)} onKeyDown={handleKeyDown} onChange={handleChange} fontWeight='medium' fontFamily='mono' />
     </Flex>
   )
 }

@@ -56,7 +56,7 @@ export default function NoteEntry ({ noteName }: {noteName: string}): JSX.Elemen
   return (
     <ScaleFade in initialScale={0.8}>
       <Link to={`/note/${noteName}`}>
-        <AlertDialog motionPreset='slideInBottom' isOpen={isRenameAlertOpen} onClose={() => setRenameAlertIsOpen(false)} leastDestructiveRef={undefined}>
+        <AlertDialog motionPreset='scale' isOpen={isRenameAlertOpen} onClose={() => setRenameAlertIsOpen(false)} leastDestructiveRef={undefined}>
           <AlertDialogOverlay />
           <AlertDialogContent>
             <form onSubmit={handleRename}>
@@ -98,7 +98,7 @@ export default function NoteEntry ({ noteName }: {noteName: string}): JSX.Elemen
                 setRenameAlertIsOpen(true)
               }}
             />
-            <AlertDialog autoFocus motionPreset='slideInBottom' isOpen={isDeleteAlertOpen} onClose={() => setDeleteAlertOpen(false)} leastDestructiveRef={undefined}>
+            <AlertDialog autoFocus motionPreset='scale' isOpen={isDeleteAlertOpen} onClose={() => setDeleteAlertOpen(false)} leastDestructiveRef={undefined}>
               <AlertDialogOverlay />
               <AlertDialogContent>
                 <AlertDialogHeader>
@@ -120,7 +120,6 @@ export default function NoteEntry ({ noteName }: {noteName: string}): JSX.Elemen
                 setDeleteAlertOpen(true)
               }} variant='outline' icon={<FaTrash />}
             />
-
           </HStack>
         </Flex>
       </Link>
