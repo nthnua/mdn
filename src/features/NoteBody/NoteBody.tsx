@@ -14,9 +14,9 @@ export default function NoteBody ({ noteId }: {noteId: string}): JSX.Element {
       bg='blue.200' flexGrow='1' flexDir='column' minW={{
         base: 'full',
         md: '50%'
-      }} rounded='lg' p='4'
+      }} rounded='lg' p='4' m='0.5' fontFamily='body' fontWeight='medium'
     >
-      <ReactMarkdown components={ChakraUIRenderer()}>{(currentNote.name === noteId ? currentNote.content : savedNoteContent) ?? ''}</ReactMarkdown>
+      <ReactMarkdown components={ChakraUIRenderer()}>{(currentNote.name === noteId ? currentNote.content : savedNoteContent) ?? 'Your note will appear here.'}</ReactMarkdown>
     </Flex>
   )
 }

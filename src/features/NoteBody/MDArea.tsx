@@ -27,9 +27,9 @@ export default function MDArea ({ noteId }: {noteId: string}): JSX.Element {
       bg='green.200' minW={{
         base: 'full',
         md: '50%'
-      }} flexGrow='1' rounded='lg' p='4'
+      }} flexGrow='1' rounded='lg' p='4' m='0.5'
     >
-      <Textarea minH='full' size='lg' display='flex' flexGrow='1' resize='none' maxW='full' variant='unstyled' placeholder='Write here :)' value={(currentNote.name === noteId ? currentNote.content : savedNoteContent)} onChange={handleChange} />
+      <Textarea minH='full' size='lg' display='flex' flexGrow='1' resize='none' maxW='full' variant='unstyled' placeholder='Write markdown here!' value={(currentNote.name === noteId ? currentNote.content : savedNoteContent)} onChange={handleChange} fontWeight='medium' fontFamily='mono' />
     </Flex>
   )
 }

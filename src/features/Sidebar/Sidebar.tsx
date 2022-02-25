@@ -18,7 +18,7 @@ export default function Sidebar (): JSX.Element {
       w={{
         base: 'full',
         md: '16%'
-      }} minH='full' flexDir='column' bg='orange.100' rounded='lg' p='2' mx='2' boxShadow='base' overflowY='scroll'
+      }} minH='full' flexDir='column' bg='orange.100' rounded='lg' p='2' m='0.5' boxShadow='base' overflowY='scroll'
     >
       <Box cursor='pointer' bg='orange.200' rounded='full' textAlign='center' shadow='md'>
         <Input placeholder='Search notes' p='2' rounded='full' variant='unstyled' />
