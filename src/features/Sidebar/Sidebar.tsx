@@ -18,10 +18,10 @@ export default function Sidebar (): JSX.Element {
   }
   return (
     <Flex
-      w={{
+      maxW={{
         base: 'full',
-        md: '16%'
-      }} minH='full' flexDir='column' bg={sideBarBg} rounded='lg' p='2' m='0.5' boxShadow='base' overflowY='scroll'
+        md: '20%'
+      }} minH='full' flexDir='column' bg={sideBarBg} flexGrow='3' rounded='lg' p='2' m='0.5' boxShadow='base' overflowY='scroll'
     >
       <Box cursor='pointer' bg={searchBg} rounded='full' textAlign='center' shadow='md'>
         <Input placeholder='Search notes' py='2' px='4' textAlign='center' rounded='full' variant='unstyled' />

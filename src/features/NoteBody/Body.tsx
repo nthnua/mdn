@@ -14,7 +14,7 @@ export default function Body (): JSX.Element {
       minH='full' w={{
         base: 'full',
         md: '80%'
-      }} bg={bgColor} zIndex={mq.zIndex} position={mq.position} flexDirection={mq.flexDirection}
+      }} bg={bgColor} zIndex={mq.zIndex} position={mq.position} flexDirection={mq.flexDirection} flexGrow='7'
     >
       <NoteBody noteId={noteId ?? ''} />
       <MDArea noteId={noteId ?? ''} />

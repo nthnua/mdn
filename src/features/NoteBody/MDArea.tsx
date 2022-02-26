@@ -22,7 +22,8 @@ export default function MDArea ({ noteId }: {noteId: string}): JSX.Element {
       variant: 'solid',
       status: 'success',
       description: 'Note saved',
-      duration: 800
+      duration: 800,
+      position: 'top-right'
     })
   }
   // create a new note here and add to current note
@@ -53,9 +54,9 @@ export default function MDArea ({ noteId }: {noteId: string}): JSX.Element {
       overflowY='scroll' overflowWrap='break-word'
       bg={bgColor} minW={{
         base: 'full',
-        md: '50%'
-      }} flexDir='column' rounded='lg' flexGrow='1' p='4' m='0.5'
-      maxH={{
+        md: '48%'
+      }} flexDir='column' rounded='lg' flexGrow='5' p='4' m='0.5'
+      minH={{
         base: '45vh',
         md: 'full'
       }}

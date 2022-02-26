@@ -15,11 +15,11 @@ export default function NoteBody ({ noteId }: {noteId: string}): JSX.Element {
 
   return (
     <Flex
-      overflowY='scroll' overflowWrap='break-word' flexGrow='1'
+      overflowY='scroll' overflowWrap='break-word' flexGrow='5'
       bg={bgColor} flexDir='column' minW={{
         base: 'full',
-        md: '50%'
-      }} maxH={{
+        md: '48%'
+      }} minH={{
         base: '48vh',
         md: 'full'
       }} rounded='lg' p='4' m='0.5' fontFamily='body' fontWeight='medium'

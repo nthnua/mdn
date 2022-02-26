@@ -9,7 +9,7 @@ export default function Navbar ({ noteId }: {noteId: string}): JSX.Element {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const toast = useToast()
-  const bgColor = useColorModeValue('white', 'gray.800')
+  const bgColor = useColorModeValue('gray.50', 'gray.900')
   const currentNote = useSelector((state: RootState) => state.sidebar.currentNote)
   const noteNames = useSelector((state: RootState) => state.sidebar.notes.map(note => note.name))
   const handleSave = (): void => {
@@ -21,13 +21,14 @@ export default function Navbar ({ noteId }: {noteId: string}): JSX.Element {
       variant: 'solid',
       status: 'success',
       description: 'Note saved',
-      duration: 800
+      duration: 800,
+      position: 'top-right'
     })
   }
-  const mq = useBreakpointValue({ base: { flexDirection: 'row', my: '0', mx: '2' }, md: { flexDirection: 'column', my: '2', mx: '0' } }) as ChakraProps
+  const mq = useBreakpointValue({ base: { flexDirection: 'row', my: '0', mx: '2', maxW: 'full' }, md: { flexDirection: 'column', my: '2', mx: '0', maxW: '2%' } }) as ChakraProps
   return (
     <Flex
-      bg={bgColor} rounded='lg' p='2' flexDir={mq?.flexDirection}
+      bg={bgColor} rounded='lg' p='2' flexDir={mq?.flexDirection} flexGrow='2'
     >
       <IconButton size='sm' aria-label='Go back' onClick={() => navigate('/')} variant='outline' icon={<FaChevronLeft />} my={mq.my} mx={mq.mx} />
       <IconButton size='sm' aria-label='Save note' onClick={handleSave} variant='solid' colorScheme='green' icon={<FaSave />} my={mq.my} mx={mq.mx} />
