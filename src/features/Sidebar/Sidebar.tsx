@@ -26,7 +26,8 @@ export default function Sidebar (): JSX.Element {
       files[i].text().then(data => {
         let name = ''
         // name cleanup, only allow safe chars
-        const nameMatch = files[i].name.match('/[A-Za-z_0-9 ]+/')
+        const nameMatch = files[i].name.match(/[A-Za-z_0-9 ]+/)
+        console.log(nameMatch, files[0].name)
         if (nameMatch != null) {
           // if not already used
           if (!notes.some(note => note.name === nameMatch[0])) { name = nameMatch[0] } else { name = `Upload${Math.floor(Math.random() * 999999999999999)}` }
