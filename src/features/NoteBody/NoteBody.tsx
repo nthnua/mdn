@@ -1,6 +1,6 @@
 import { Flex, Text, useColorModeValue } from '@chakra-ui/react'
 import ChakraUIRenderer from 'chakra-ui-markdown-renderer'
-import { useEffect, useRef } from 'react'
+// import { useEffect, useRef } from 'react'
 import ReactMarkdown from 'react-markdown'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../app/store'
@@ -8,10 +8,10 @@ import { RootState } from '../../app/store'
 export default function NoteBody ({ noteId }: {noteId: string}): JSX.Element {
   const currentNote = useSelector((state: RootState) => state.sidebar.currentNote)
   const bgColor = useColorModeValue('yellow.50', 'yellow.900')
-  const scrollRef = useRef() as React.MutableRefObject<HTMLInputElement>
-  useEffect(() => {
-    scrollRef.current.scrollIntoView({ behavior: 'auto' })
-  }, [currentNote.content])
+  // const scrollRef = useRef() as React.MutableRefObject<HTMLInputElement>
+  // useEffect(() => {
+  //   scrollRef.current.scrollIntoView({ behavior: 'auto' })
+  // }, [currentNote.content])
 
   return (
     <Flex
@@ -26,7 +26,7 @@ export default function NoteBody ({ noteId }: {noteId: string}): JSX.Element {
       {currentNote.content !== ''
         ? <ReactMarkdown components={ChakraUIRenderer()} skipHtml={false}>{currentNote.content}</ReactMarkdown>
         : <Text color='gray'>Your note's content will appear here :)</Text>}
-      <div ref={scrollRef} />
+      {/* <div ref={scrollRef} /> */}
     </Flex>
   )
 }
