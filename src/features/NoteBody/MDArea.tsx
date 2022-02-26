@@ -51,9 +51,8 @@ export default function MDArea ({ noteId }: {noteId: string}): JSX.Element {
     <Flex
       overflowY='scroll' overflowWrap='break-word'
       bg={bgColor} minW={{
-        base: 'full',
         md: '48%'
-      }} flexDir='column' rounded='lg' flexGrow='5' p='4' m='0.5'
+      }} flexDir='column' rounded='lg' flexGrow='5' p='4'
       minH={{
         base: '45vh',
         md: 'full'

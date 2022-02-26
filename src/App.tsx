@@ -17,7 +17,7 @@ export const App = (): JSX.Element => {
   const notes = useSelector((state: RootState) => state.sidebar.notes)
   useEffect(() => {
     try {
-      const storedNotes: Note[] = JSON.parse(window.localStorage.getItem('notes') ?? '[{"name":"Welcome","content":"Welcome to mdn! \\n----\\n__*mdn* stands for mark down notes.__\\n\\nIts a simple app used to quickly take down notes, todo lists or anything text for that matter. or even images :)","creationtime":0}]')
+      const storedNotes: Note[] = JSON.parse(window.localStorage.getItem('notes') ?? '[{"name":"Welcome","content":"Welcome to mdn! \\n----\\n__*mdn* stands for mark down notes.__\\n\\nIt\'s a simple app used to quickly take down notes, todo lists or anything text for that matter. or even images :)","creationtime":0}]')
       dispatch(loadNotes(storedNotes))
     } catch (e) {
       console.error(e)

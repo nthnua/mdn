@@ -17,12 +17,11 @@ export default function NoteBody ({ noteId }: {noteId: string}): JSX.Element {
     <Flex
       overflowY='scroll' overflowWrap='break-word' flexGrow='5'
       bg={bgColor} flexDir='column' minW={{
-        base: 'full',
         md: '48%'
       }} minH={{
         base: '48vh',
         md: 'full'
-      }} rounded='lg' p='4' m='0.5' fontFamily='body' fontWeight='medium'
+      }} rounded='lg' p='4' fontFamily='body' fontWeight='medium'
     >
       {currentNote.content !== ''
         ? <ReactMarkdown components={ChakraUIRenderer()}>{currentNote.content}</ReactMarkdown>
