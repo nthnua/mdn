@@ -21,10 +21,10 @@ export default function NoteBody ({ noteId }: {noteId: string}): JSX.Element {
       }} h={{
         base: '48vh',
         md: 'full'
-      }} rounded='lg' p='4' fontFamily='body' fontWeight='medium'
+      }} rounded='lg' p='4' fontFamily='body' fontWeight='normal' fontSize='md'
     >
       {currentNote.content !== ''
-        ? <ReactMarkdown components={ChakraUIRenderer()}>{currentNote.content}</ReactMarkdown>
+        ? <ReactMarkdown components={ChakraUIRenderer()} skipHtml={false}>{currentNote.content}</ReactMarkdown>
         : <Text color='gray'>Your note's content will appear here :)</Text>}
       <div ref={scrollRef} />
     </Flex>

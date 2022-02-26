@@ -5,7 +5,7 @@ const FileUploader = ({ handleFiles }: {handleFiles: (files: FileList) => void})
   const hiddenFileInput = useRef() as MutableRefObject<HTMLInputElement>
   // Programatically click the hidden file input element
   // when the Button component is clicked
-  const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {
+  const handleClick: MouseEventHandler<HTMLButtonElement> = () => {
     hiddenFileInput.current?.click()
   }
   // Call a function (passed as a prop from the parent component)
