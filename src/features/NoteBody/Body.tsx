@@ -11,9 +11,9 @@ export default function Body (): JSX.Element {
   const { noteId } = useParams()
   return (
     <Flex
-      minH='full' w={{
+      minH='full' minW={{
         base: 'full',
-        md: '80%'
+        md: '70%'
       }} bg={bgColor} zIndex={mq.zIndex} position={mq.position} flexDirection={mq.flexDirection} flexGrow='7'
     >
       <NoteBody noteId={noteId ?? ''} />

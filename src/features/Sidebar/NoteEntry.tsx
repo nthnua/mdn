@@ -70,7 +70,7 @@ export default function NoteEntry ({ noteName }: {noteName: string}): JSX.Elemen
               <AlertDialogBody>
                 <FormControl isInvalid={!newNameValid}>
                   <Input
-                    isRequired pattern='[A-Za-z0-9_ ]+' name='name' type='text' value={newName} onChange={(e) => {
+                    autoFocus isRequired pattern='[A-Za-z0-9_ ]+' name='name' type='text' value={newName} onChange={(e) => {
                       setNewName(e.target.value)
                       setNewNameValid(true)
                     }}

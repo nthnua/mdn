@@ -32,8 +32,6 @@ export default function MDArea ({ noteId }: {noteId: string}): JSX.Element {
     dispatch(editNote({ id: noteId, content: e.target.value }))
   }
   const handleKeyDown: React.KeyboardEventHandler<HTMLTextAreaElement> = (event) => {
-    // event.preventDefault()
-    console.log(event.ctrlKey)
     if ((event.ctrlKey || event.metaKey) && event.key === 's') {
       event.preventDefault()
       event.stopPropagation()

@@ -1,13 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { Note } from '../../types'
 
-const initialState: {notes: Note[], currentNote: Note} = {
+const initialState: {notes: Note[], currentNote: Note, searchNotes: Note[]} = {
   notes: [],
   currentNote: {
     name: '',
     content: '',
     creationtime: 0
-  }
+  },
+  searchNotes: []
 }
 
 export const sidebarSlice = createSlice({
@@ -45,8 +46,11 @@ export const sidebarSlice = createSlice({
     },
     deleteNote: (state, action) => {
       state.notes = state.notes.filter(note => note.name !== action.payload.name)
+    },
+    setSearchNotes: (state, action) => {
+      state.searchNotes = action.payload
     }
   }
 })
-export const { addNote, saveNote, editNote, renameNote, loadNotes, deleteNote } = sidebarSlice.actions
+export const { addNote, saveNote, editNote, renameNote, loadNotes, deleteNote, setSearchNotes } = sidebarSlice.actions
 export default sidebarSlice.reducer
