@@ -1,9 +1,10 @@
 import { ChakraProps, Flex, IconButton, useBreakpointValue, useColorModeValue, useToast } from '@chakra-ui/react'
-import { FaChevronLeft, FaFileDownload, FaSave } from 'react-icons/fa'
+import { FaChevronLeft, FaSave } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { RootState } from '../../app/store'
 import { addNote, saveNote } from '../Sidebar/SidebarSlice'
+import FileDownloader from './FileDownloader'
 
 export default function Navbar ({ noteId }: {noteId: string}): JSX.Element {
   const navigate = useNavigate()
@@ -32,7 +33,7 @@ export default function Navbar ({ noteId }: {noteId: string}): JSX.Element {
       bg={bgColor} rounded='lg' p={mq.p} flexDir={mq?.flexDirection} flexGrow='2' align='center'
     >
       <IconButton size='sm' aria-label='Go back' onClick={() => navigate('/')} variant='outline' icon={<FaChevronLeft />} my={mq.my} mx={mq.mx} />
-      <IconButton size='sm' aria-label='Download markdown' onClick={handleSave} variant='outline' icon={<FaFileDownload />} my={mq.my} mx={mq.mx} />
+      <FileDownloader content={currentNote.content} name={noteId} props={{ mx: mq.mx, my: mq.my }} />
       <IconButton size='sm' aria-label='Save note' onClick={handleSave} variant='solid' colorScheme='green' icon={<FaSave />} my={mq.my} mx={mq.mx} />
     </Flex>
   )
