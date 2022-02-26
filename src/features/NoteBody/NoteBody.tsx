@@ -7,7 +7,7 @@ import { RootState } from '../../app/store'
 
 export default function NoteBody ({ noteId }: {noteId: string}): JSX.Element {
   const currentNote = useSelector((state: RootState) => state.sidebar.currentNote)
-  const bgColor = useColorModeValue('orange.50', 'orange.800')
+  const bgColor = useColorModeValue('yellow.50', 'yellow.900')
   const scrollRef = useRef() as React.MutableRefObject<HTMLInputElement>
   useEffect(() => {
     scrollRef.current.scrollIntoView({ behavior: 'auto' })

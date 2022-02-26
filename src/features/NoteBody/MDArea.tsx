@@ -11,7 +11,7 @@ export default function MDArea ({ noteId }: {noteId: string}): JSX.Element {
     return state.sidebar.notes.find(note => note.name === noteId)?.content
   })
   const dispatch = useDispatch()
-  const bgColor = useColorModeValue('green.50', 'green.800')
+  const bgColor = useColorModeValue('green.50', 'green.900')
   const noteNames = useSelector((state: RootState) => state.sidebar.notes.map(note => note.name))
   const handleSave = (): void => {
     const existingNote = (noteNames.some((name) => name === noteId))
