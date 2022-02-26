@@ -1,9 +1,10 @@
 import { Box, Flex, HStack, IconButton, Input, useColorModeValue } from '@chakra-ui/react'
 import { ChangeEventHandler, MouseEventHandler, useState } from 'react'
-import { FaCog, FaPlus } from 'react-icons/fa'
+import { FaEllipsisV, FaPlus } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../app/store'
 import { ColorModeSwitcher } from '../../ColorModeSwitcher'
+import FileUploader from './FileUploader'
 import NoteEntry from './NoteEntry'
 import { addNote, setSearchNotes } from './SidebarSlice'
 
@@ -19,6 +20,13 @@ export default function Sidebar (): JSX.Element {
 
   const handleAddNote: MouseEventHandler = () => {
     dispatch(addNote({ name: `Note${Math.floor(Math.random() * 999999999999999)}`, content: '' }))
+  }
+  const handleUpload = (files: FileList): void => {
+    for (let i = 0; i < files.length; i++) {
+      files[i].text().then(data => {
+        dispatch(addNote({ name: `${files[i].name}`, content: data }))
+      }).catch(err => console.error(err))
+    }
   }
   const handleSearch: ChangeEventHandler<HTMLInputElement> = (e) => {
     const searchQ = e.target.value.toLowerCase()
@@ -41,8 +49,10 @@ export default function Sidebar (): JSX.Element {
       </Box>
       <HStack py='3' alignSelf='center'>
         <IconButton size='sm' aria-label='Add new' variant='ghost' colorScheme='orange' icon={<FaPlus />} onClick={handleAddNote} />
-        <IconButton size='sm' aria-label='Options' variant='ghost' colorScheme='orange' icon={<FaCog />} />
+        <FileUploader handleFiles={handleUpload} />
         <ColorModeSwitcher />
+        <IconButton size='sm' aria-label='Options' variant='ghost' colorScheme='orange' icon={<FaEllipsisV />} />
+
       </HStack>
       {Notes}
     </Flex>
