@@ -24,7 +24,16 @@ export default function Sidebar (): JSX.Element {
   const handleUpload = (files: FileList): void => {
     for (let i = 0; i < files.length; i++) {
       files[i].text().then(data => {
-        dispatch(addNote({ name: `${files[i].name}`, content: data }))
+        let name = ''
+        // name cleanup, only allow safe chars
+        const nameMatch = files[i].name.match('/[A-Za-z_0-9 ]+/')
+        if (nameMatch != null) {
+          // if not already used
+          if (!notes.some(note => note.name === nameMatch[0])) { name = nameMatch[0] } else { name = `Upload${Math.floor(Math.random() * 999999999999999)}` }
+        } else {
+          name = `Upload${Math.floor(Math.random() * 999999999999999)}`
+        }
+        dispatch(addNote({ name, content: data }))
       }).catch(err => console.error(err))
     }
   }
