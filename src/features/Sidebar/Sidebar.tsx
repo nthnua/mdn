@@ -1,6 +1,7 @@
 import { Box, Flex, HStack, IconButton, Input, useColorModeValue } from '@chakra-ui/react'
 import { ChangeEventHandler, MouseEventHandler, useState } from 'react'
-import { FaEllipsisV, FaPlus } from 'react-icons/fa'
+import { FaPlus } from 'react-icons/fa'
+// import { FaEllipsisV, FaPlus } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../app/store'
 import { ColorModeSwitcher } from '../../ColorModeSwitcher'
@@ -61,7 +62,7 @@ export default function Sidebar (): JSX.Element {
         <IconButton size='sm' aria-label='Add new' variant='ghost' colorScheme='orange' icon={<FaPlus />} onClick={handleAddNote} />
         <FileUploader handleFiles={handleUpload} />
         <ColorModeSwitcher />
-        <IconButton size='sm' aria-label='Options' variant='ghost' colorScheme='orange' icon={<FaEllipsisV />} />
+        {/* <IconButton size='sm' aria-label='Options' variant='ghost' colorScheme='orange' icon={<FaEllipsisV />} /> */}
 
       </HStack>
       {Notes}

@@ -4,6 +4,7 @@ import ChakraUIRenderer from 'chakra-ui-markdown-renderer'
 import ReactMarkdown from 'react-markdown'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../app/store'
+import remarkGfm from 'remark-gfm'
 
 export default function NoteBody ({ noteId }: {noteId: string}): JSX.Element {
   const currentNote = useSelector((state: RootState) => state.sidebar.currentNote)
@@ -24,7 +25,7 @@ export default function NoteBody ({ noteId }: {noteId: string}): JSX.Element {
       }} rounded='lg' p='4' fontFamily='body' fontWeight='normal' fontSize='md'
     >
       {currentNote.content !== ''
-        ? <ReactMarkdown components={ChakraUIRenderer()} skipHtml={false}>{currentNote.content}</ReactMarkdown>
+        ? <ReactMarkdown remarkPlugins={[remarkGfm]} components={ChakraUIRenderer()} skipHtml>{currentNote.content}</ReactMarkdown>
         : <Text color='gray'>Your note's content will appear here :)</Text>}
       {/* <div ref={scrollRef} /> */}
     </Flex>
