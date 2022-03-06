@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
 import { RootState } from './app/store'
 import Body from './features/NoteBody/Body'
+import Empty from './features/NoteBody/Empty'
 import SPane from './features/Settings/SPane'
 import Sidebar from './features/Sidebar/Sidebar'
 import { loadNotes } from './features/Sidebar/SidebarSlice'
@@ -32,7 +33,7 @@ export const App = (): JSX.Element => {
     <ChakraProvider theme={theme}>
       <Flex minH='100vh' maxH='100vh' minW='100vw' maxW='100vw' p='2'>
         <Routes>
-          <Route path='/' element={<Sidebar />} />
+          <Route path='/' element={<><Sidebar /><Empty /></>} />
           <Route path='/note/:noteId' element={<><Sidebar /><Body /></>} />
           <Route path='/settings' element={<SPane />} />
         </Routes>
