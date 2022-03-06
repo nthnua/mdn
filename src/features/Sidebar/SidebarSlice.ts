@@ -10,7 +10,9 @@ const initialState: {notes: Note[], currentNote: Note, searchNotes: Note[]} = {
   },
   searchNotes: []
 }
-
+export function saveState (notes: Note[]): void {
+  window.localStorage.setItem('notes', JSON.stringify(notes))
+}
 export const sidebarSlice = createSlice({
   name: 'sidebar',
   initialState,
@@ -22,6 +24,7 @@ export const sidebarSlice = createSlice({
         creationtime: Date.now()
       }
       state.notes.push(newNote)
+      saveState(state.notes)
     },
     saveNote: (state, action) => {
       state.notes.forEach((note, indx) => {
@@ -29,6 +32,7 @@ export const sidebarSlice = createSlice({
           note.content = action.payload.content
         }
       })
+      saveState(state.notes)
     },
     editNote: (state, action) => {
       state.currentNote.name = action.payload.id
@@ -40,12 +44,15 @@ export const sidebarSlice = createSlice({
           note.name = action.payload.newName
         }
       })
+      saveState(state.notes)
     },
     loadNotes: (state, action) => {
       state.notes = action.payload
+      saveState(state.notes)
     },
     deleteNote: (state, action) => {
       state.notes = state.notes.filter(note => note.name !== action.payload.name)
+      saveState(state.notes)
     },
     setSearchNotes: (state, action) => {
       state.searchNotes = action.payload
