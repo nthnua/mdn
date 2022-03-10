@@ -15,7 +15,7 @@ export default function NoteBody ({ noteId }: {noteId: string}): JSX.Element {
   // }, [currentNote.content])
   return (
     <Flex
-      overflowY='scroll' overflowWrap='break-word' flexGrow='5'
+      overflowY='auto' overflowWrap='break-word' flexGrow='5'
       bg={bgColor} flexDir='column' minW={{
         md: '48%'
       }} h={{
@@ -27,7 +27,7 @@ export default function NoteBody ({ noteId }: {noteId: string}): JSX.Element {
         ? <ReactMarkdown
             remarkPlugins={[remarkGfm]} components={ModifiedChakraRenderer()} skipHtml
           >{currentNote.content}
-          </ReactMarkdown>
+        </ReactMarkdown>
         : <Text color='gray'>Your note's content will appear here :)</Text>}
       {/* <div ref={scrollRef} /> */}
     </Flex>

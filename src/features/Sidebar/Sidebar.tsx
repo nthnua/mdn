@@ -53,7 +53,7 @@ export default function Sidebar (): JSX.Element {
       maxW={{
         base: 'full',
         md: '20%'
-      }} minH='full' flexDir='column' bg={sideBarBg} flexGrow='3' rounded='lg' p='2' m='0.5' boxShadow='base' overflowY='scroll'
+      }} minH='full' flexDir='column' bg={sideBarBg} flexGrow='3' rounded='lg' p='2' m='0.5' boxShadow='base' overflowY='auto'
     >
       <Box cursor='pointer' bg={searchBg} rounded='full' textAlign='center' shadow='md'>
         <Input placeholder='Search notes' py='2' px='4' textAlign='center' rounded='full' variant='unstyled' onChange={handleSearch} />
