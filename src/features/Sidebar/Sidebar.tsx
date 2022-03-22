@@ -17,7 +17,7 @@ export default function Sidebar (): JSX.Element {
   const sideBarBg = useColorModeValue('orange.50', 'orange.800')
   const searchBg = useColorModeValue('orange.200', 'orange.900')
 
-  const Notes = isSearch ? searchNotes.map((note, indx) => <NoteEntry key={indx} noteName={note.name} />) : notes.map((note, indx) => <NoteEntry key={indx} noteName={note.name} />)
+  const Notes = isSearch ? searchNotes.map((note, indx) => <NoteEntry key={`${indx}-${note.name}`} noteName={note.name} />) : notes.map((note, indx) => <NoteEntry key={`${indx}-${note.name}`} noteName={note.name} />)
 
   const handleAddNote: MouseEventHandler = () => {
     dispatch(addNote({ name: `Note${Math.floor(Math.random() * 999999999999999)}`, content: '' }))

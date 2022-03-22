@@ -11,7 +11,7 @@ import {
   HStack,
   IconButton,
   Input,
-  ScaleFade,
+  SlideFade,
   Text,
   useColorModeValue
 } from '@chakra-ui/react'
@@ -57,7 +57,7 @@ export default function NoteEntry ({ noteName }: {noteName: string}): JSX.Elemen
     setDeleteAlertOpen(false)
   }
   return (
-    <ScaleFade in initialScale={0.8}>
+    <SlideFade in offsetY='30px'>
       <Link to={encodeURI(`/note/${noteName}`)}>
         <AlertDialog motionPreset='scale' isOpen={isRenameAlertOpen} onClose={() => setRenameAlertIsOpen(false)} leastDestructiveRef={undefined}>
           <AlertDialogOverlay />
@@ -125,6 +125,6 @@ export default function NoteEntry ({ noteName }: {noteName: string}): JSX.Elemen
           </HStack>
         </Flex>
       </Link>
-    </ScaleFade>
+    </SlideFade>
   )
 }
