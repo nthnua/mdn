@@ -58,7 +58,7 @@ export default function NoteEntry ({ noteName }: {noteName: string}): JSX.Elemen
   }
   return (
     <ScaleFade in initialScale={0.8}>
-      <Link to={`/note/${noteName}`}>
+      <Link to={encodeURI(`/note/${noteName}`)}>
         <AlertDialog motionPreset='scale' isOpen={isRenameAlertOpen} onClose={() => setRenameAlertIsOpen(false)} leastDestructiveRef={undefined}>
           <AlertDialogOverlay />
           <AlertDialogContent>
